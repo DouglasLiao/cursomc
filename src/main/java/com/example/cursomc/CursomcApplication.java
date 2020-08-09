@@ -11,4 +11,5 @@ public class CursomcApplication {
 	}
 
 }
+//iniciar um repositório de diversionamento
 //Se quiser trocar de servidor, acessar "aplication.properties" >> digitar "server.port=${port:xxxx}"
