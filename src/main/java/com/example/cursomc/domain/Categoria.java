@@ -2,10 +2,21 @@ package com.example.cursomc.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+//Criar entidade do JPA
+@Entity
 //Implementar Serializable para que os objetos possam ser convertidos para uma sequencia de bytes (gravar arquviso, trafegar em rede etc_
 public class Categoria implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Definindo a estratégia de geração automática com os IDs
+	
 	//Criar os atributos básicos
 	private Integer id;
 	private String nome;
