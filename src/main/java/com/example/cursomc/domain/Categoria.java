@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 //Criar entidade do JPA
 @Entity
 //Implementar Serializable para que os objetos possam ser convertidos para uma sequencia de bytes (gravar arquviso, trafegar em rede etc_
@@ -25,9 +27,10 @@ public class Categoria implements Serializable{
 	private Integer id;
 	private String nome;
 	
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
-	
+		
 	//Criar os construtores da classe
 	public Categoria() {
 	}
