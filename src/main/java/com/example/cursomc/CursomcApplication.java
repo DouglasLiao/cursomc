@@ -72,12 +72,10 @@ public class CursomcApplication implements CommandLineRunner {
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
-
-		//Salvar esses dois objetos no banco de dados
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
-		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
-		//Para Estado e cidade
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));														//Salvar esses dois objetos no banco de dados
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+//-------------------------------------------------------------------------------------------------------------------//
 		Estado est1 = new Estado(null, "Minas Gerais");
 		Estado est2 = new Estado(null, "São Paulo");
 		
@@ -88,9 +86,9 @@ public class CursomcApplication implements CommandLineRunner {
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2,c3));
 		
-		estadoRepository.saveAll(Arrays.asList(est1, est2)); 	//Prioridade, salva "OneToMany"
+		estadoRepository.saveAll(Arrays.asList(est1, est2)); 														//Prioridade, salva "OneToMany"
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-				
+//-------------------------------------------------------------------------------------------------------------------//
 		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 		
 		cli1.getTelefones().addAll(Arrays.asList("912345678", "998989898"));
@@ -102,7 +100,7 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
-		
+//-------------------------------------------------------------------------------------------------------------------//
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
@@ -119,9 +117,8 @@ public class CursomcApplication implements CommandLineRunner {
 		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
-		
 		pagamentoRepository.saveAll(Arrays.asList(pagto2, pagto2));
-		
+//-------------------------------------------------------------------------------------------------------------------//
 		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
 		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
 		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
@@ -134,10 +131,9 @@ public class CursomcApplication implements CommandLineRunner {
 		p3.getItens().addAll(Arrays.asList(ip2));
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+//-------------------------------------------------------------------------------------------------------------------//
 	}
 
 }
-
-
 //iniciar um repositório de diversionamento
 //Se quiser trocar de servidor, acessar "aplication.properties" >> digitar "server.port=${port:xxxx}"

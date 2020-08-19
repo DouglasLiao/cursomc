@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable{
@@ -28,19 +29,19 @@ public class Produto implements Serializable{
 	private String nome;
 	private Double preco;
 
-	//Do outro lado da associação já foram buscados os objetos
-	@JsonBackReference
-	//Criar um mapeamento devido ao relacionamento muito para muito, e criar uma tabela entre eles contendo os IDs das outras duas tabelas
-	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA", 									//Nome da terceira tabela
-				joinColumns = @JoinColumn(name="produto_id"), 				//Nome do campo da tabela correspondente ao produto
-				inverseJoinColumns = @JoinColumn(name = "categoria_id")		//Nome da outra chave estrangeira que relaciona a categoria
+																										//Do outro lado da associação já foram buscados os objetos
+	@JsonBackReference																						
+	@ManyToMany																							//Criar um mapeamento devido ao relacionamento muito para muito, e criar uma tabela entre eles contendo os IDs das outras duas tabelas
+	@JoinTable(name = "PRODUTO_CATEGORIA", 																//Nome da terceira tabela
+				joinColumns = @JoinColumn(name="produto_id"), 											//Nome do campo da tabela correspondente ao produto
+				inverseJoinColumns = @JoinColumn(name = "categoria_id")									//Nome da outra chave estrangeira que relaciona a categoria
 			  )
 	
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
-	private Set<ItemPedido> itens  = new HashSet<>(); //Não vai ter item repedido no mesmo pedido
+	private Set<ItemPedido> itens  = new HashSet<>(); 													//Não vai ter item repedido no mesmo pedido
 	
 	public Produto() {
 	}
@@ -51,7 +52,8 @@ public class Produto implements Serializable{
 		this.nome = nome;
 		this.preco = preco;
 	}
-
+	
+	@JsonIgnore
 	public List<Pedido> getPedidos(){
 		List<Pedido> lista  = new ArrayList();
 		for (ItemPedido x : itens) {

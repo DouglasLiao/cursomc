@@ -6,11 +6,11 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Embeddable //Subtipo
+@Embeddable 																								//Subtipo
 public class ItemPedidoPK implements Serializable{
-	//Auxiliar
+
 	@ManyToOne
-	@JoinColumn(name = "pedido_id")
+	@JoinColumn(name = "pedido_id")																			//Auxiliar
 	private Pedido pedido;
 	
 	@ManyToOne

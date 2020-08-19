@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.example.cursomc.domain.ItemPedido;
 
-//Operações de acesso a dados referente a ItemPedido do tipo Integer
+
 @Repository
-public interface ItemPedidoRepository extends JpaRepository<ItemPedido,Integer>{
+public interface ItemPedidoRepository extends JpaRepository<ItemPedido,Integer>{					//Operações de acesso a dados referente a ItemPedido do tipo Integer
 
 }
