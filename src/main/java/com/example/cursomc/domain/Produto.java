@@ -2,7 +2,9 @@ package com.example.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 
 @Entity
 public class Produto implements Serializable{
@@ -37,6 +39,9 @@ public class Produto implements Serializable{
 	
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemPedido> itens  = new HashSet<>(); //Não vai ter item repedido no mesmo pedido
+	
 	public Produto() {
 	}
 
@@ -47,6 +52,14 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista  = new ArrayList();
+		for (ItemPedido x : itens) {
+			lista.add(x.getPedido());
+			}
+		return lista;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -78,7 +91,15 @@ public class Produto implements Serializable{
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
 
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,9 +124,6 @@ public class Produto implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 }
 
 
