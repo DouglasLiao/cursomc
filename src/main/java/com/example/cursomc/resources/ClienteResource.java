@@ -24,7 +24,7 @@ public class ClienteResource {
 	private ClienteService service; //Acessando a camada de serviço
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)	//obtendo um dado
-	public ResponseEntity<?> find(@PathVariable Integer id) { //Tipo "?" é qualquer tipo
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) { //Tipo "Categoria" é qualquer tipo
 		
 		Cliente obj = service.find(id);
 	

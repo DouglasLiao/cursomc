@@ -24,7 +24,7 @@ public class PedidoResource {
 	private PedidoService service; //Acessando a camada de serviço
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)	//obtendo um dado
-	public ResponseEntity<?> find(@PathVariable Integer id) { //Tipo "?" é qualquer tipo
+	public ResponseEntity<Pedido> find(@PathVariable Integer id) { 
 		
 		Pedido obj = service.find(id);
 	
