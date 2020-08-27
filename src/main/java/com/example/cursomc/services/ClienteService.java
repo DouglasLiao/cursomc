@@ -18,7 +18,6 @@ import com.example.cursomc.domain.Endereco;
 import com.example.cursomc.domain.enums.TipoCliente;
 import com.example.cursomc.dto.ClienteDTO;
 import com.example.cursomc.dto.ClienteNewDTO;
-import com.example.cursomc.repositories.CidadeRepository;
 import com.example.cursomc.repositories.ClienteRepository;
 import com.example.cursomc.repositories.EnderecoRepository;
 import com.example.cursomc.services.exceptions.DataIntegrityException;
@@ -62,7 +61,7 @@ public class ClienteService {
 			repo.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir porque há entidades relacionadas");
+			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
 		}
 		repo.deleteById(id);
 	}
