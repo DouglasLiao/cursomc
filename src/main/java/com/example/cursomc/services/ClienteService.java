@@ -3,7 +3,7 @@ package com.example.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.cursomc.domain.Cidade;
 import com.example.cursomc.domain.Cliente;
@@ -53,6 +54,7 @@ public class ClienteService {
 		Cliente newObj = find(obj.getId());
 		updateData(newObj, obj);
 		return repo.save(newObj);
+		//return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 	}
 	
 	public void delete(Integer id) {
@@ -91,7 +93,6 @@ public class ClienteService {
 		if (objDto.getTelefone3()!=null) {
 			cli.getTelefones().add(objDto.getTelefone3());
 		}
-		
 		return cli;
 	}
 	

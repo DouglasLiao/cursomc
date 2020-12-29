@@ -33,7 +33,7 @@ public class Cliente implements Serializable{
 	
 	
 	//fazer as associações com o endereco
-	@OneToMany(mappedBy = "cliente",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	//tipo set é um cojunto que não aceita repetição, e não precisamos criar mais uma classe para rececber telefones

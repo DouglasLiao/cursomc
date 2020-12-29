@@ -22,63 +22,58 @@ import com.example.cursomc.dto.ClienteDTO;
 import com.example.cursomc.dto.ClienteNewDTO;
 import com.example.cursomc.services.ClienteService;
 
-//Inserir anotação para diretiva
-//Importação ctrl+shift+o
 @RestController
-//Preencher palavras ctrl+space
-@RequestMapping(value="/clientes") //
+@RequestMapping(value="/clientes")
 public class ClienteResource {
 	
 	@Autowired
-	private ClienteService service; //Acessando a camada de serviço
+	private ClienteService service;
 	
-	@RequestMapping(value="/{id}",method=RequestMethod.GET)	//obtendo um dado
-	public ResponseEntity<Cliente> find(@PathVariable Integer id) { //Tipo "Cliente" é qualquer tipo
-		
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		Cliente obj = service.find(id);
-	
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
-		
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {
 		Cliente obj = service.fromDTO(objDto);
-		obj.setId(id);																			//Garantir que a categoria seja atualizada
-		obj=service.update(obj);
+		obj.setId(id);
+		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)	
-	public ResponseEntity <List<ClienteDTO>> findAll() { 
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = service.findAll();
-		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList()); 
+		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	@RequestMapping(value="/page", method=RequestMethod.GET)	
+	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<ClienteDTO>> findPage(
-			@RequestParam(value="page", defaultValue="0")Integer page,
-			@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="nome")String orderBy, 
-			@RequestParam(value="direction", defaultValue="ASC")String direction) { 
-		Page<Cliente> list = service.findPage(page,linesPerPage,orderBy,direction);
-		Page<ClienteDTO>listDto = list.map(obj -> new ClienteDTO(obj)); 
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {
+		Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));  
 		return ResponseEntity.ok().body(listDto);
-	}
+	}	
 }
+
