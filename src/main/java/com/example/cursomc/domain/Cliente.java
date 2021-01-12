@@ -27,8 +27,9 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Definindo a estratégia de geração automática com os IDs
 	private Integer id;
 	private String nome;
+	
 	private String email;
-	private String cpfOUCnpj;
+	private String cpfOuCnpj;
 	private Integer tipo;
 	
 	
@@ -49,12 +50,12 @@ public class Cliente implements Serializable{
 	public Cliente() {
 		}
 
-	public Cliente(Integer id, String nome, String email, String cpfOUCnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.cpfOUCnpj = cpfOUCnpj;
+		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
@@ -83,11 +84,11 @@ public class Cliente implements Serializable{
 	}
 
 	public String getCpfOUCnpj() {
-		return cpfOUCnpj;
+		return cpfOuCnpj;
 	}
 
-	public void setCpfOUCnpj(String cpfOUCnpj) {
-		this.cpfOUCnpj = cpfOUCnpj;
+	public void setCpfOUCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
 	public TipoCliente getTipo() {

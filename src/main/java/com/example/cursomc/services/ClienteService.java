@@ -27,23 +27,20 @@ import com.example.cursomc.services.exceptions.ObjectNotFoundException;
 @Service
 public class ClienteService {
 	
-	//Essa dependencia é automaticamente instanciada pelo Spring
 	@Autowired
-	//Dependência do objeto da ClienteRepository
-	private ClienteRepository repo; //Acessando a camada de repositório
+	private ClienteRepository repo;
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
-	//Operação de buscar uma categoria por código
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-		"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
-		}
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
+	}
 	
-	@Transactional 						//Garantir que essa operação ocorra de forma transacional
-	public Cliente insert (Cliente obj) {
+	@Transactional
+	public Cliente insert(Cliente obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
 		enderecoRepository.saveAll(obj.getEnderecos());
@@ -54,26 +51,24 @@ public class ClienteService {
 		Cliente newObj = find(obj.getId());
 		updateData(newObj, obj);
 		return repo.save(newObj);
-		//return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 	}
-	
+
 	public void delete(Integer id) {
-		find(id); 									//verificar antes se o id existe
-		try{
+		find(id);
+		try {
 			repo.deleteById(id);
 		}
-		catch(DataIntegrityViolationException e) {
+		catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
 		}
-		repo.deleteById(id);
 	}
 	
-	public List<Cliente> findAll(){
+	public List<Cliente> findAll() {
 		return repo.findAll();
 	}
-	//Paginação
-	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
+	
+	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
 	
@@ -99,6 +94,5 @@ public class ClienteService {
 	private void updateData(Cliente newObj, Cliente obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
-		
 	}
 }
