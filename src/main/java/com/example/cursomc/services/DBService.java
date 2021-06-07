@@ -111,7 +111,7 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(est1, est2)); 														//Prioridade, salva "OneToMany"
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 //-------------------------------------------------------------------------------------------------------------------//
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "liao.dooug@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 		
 		cli1.getTelefones().addAll(Arrays.asList("912345678", "998989898"));
 		
